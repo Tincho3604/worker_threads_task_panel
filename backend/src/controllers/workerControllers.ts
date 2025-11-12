@@ -2,16 +2,25 @@ import { time } from "console";
 import { stat } from "fs";
 import { Worker } from "worker_threads";
 
+interface WorkerInformation {
+    threadId: number;
+    memory: string;
+    cpu: number;
+    status: number;
+    time: string;
+}
+
 export class WorkerController {
     private readonly file: string;
     private readonly threadCount: number;
-    public information: any
+    public information: WorkerInformation
     private status: number;
 
     constructor(file: string, threadCount?: number) {
         this.file = file;
         this.threadCount = threadCount || 1;
         this.status = 0;
+        this.information = {} as WorkerInformation;
    }
 
     // Método que crea y retorna un nuevo worker.
